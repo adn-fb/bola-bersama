@@ -10,12 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedAnakRouteImport } from './routes/_authenticated/anak'
+import { Route as AuthenticatedBerandaRouteImport } from './routes/_authenticated/beranda'
+import { Route as AuthenticatedPendaftaranRouteImport } from './routes/_authenticated/pendaftaran'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -28,33 +36,69 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAnakRoute = AuthenticatedAnakRouteImport.update({
+  id: '/anak',
+  path: '/anak',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBerandaRoute = AuthenticatedBerandaRouteImport.update({
+  id: '/beranda',
+  path: '/beranda',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPendaftaranRoute =
+  AuthenticatedPendaftaranRouteImport.update({
+    id: '/pendaftaran',
+    path: '/pendaftaran',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/anak': typeof AuthenticatedAnakRoute
+  '/beranda': typeof AuthenticatedBerandaRoute
+  '/pendaftaran': typeof AuthenticatedPendaftaranRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/anak': typeof AuthenticatedAnakRoute
+  '/beranda': typeof AuthenticatedBerandaRoute
+  '/pendaftaran': typeof AuthenticatedPendaftaranRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/anak': typeof AuthenticatedAnakRoute
+  '/_authenticated/beranda': typeof AuthenticatedBerandaRoute
+  '/_authenticated/pendaftaran': typeof AuthenticatedPendaftaranRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/reset-password'
+  fullPaths:
+    '/' | '/auth' | '/reset-password' | '/anak' | '/beranda' | '/pendaftaran'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password'
-  id: '__root__' | '/' | '/auth' | '/reset-password'
+  to: '/' | '/auth' | '/reset-password' | '/anak' | '/beranda' | '/pendaftaran'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/reset-password'
+    | '/_authenticated/anak'
+    | '/_authenticated/beranda'
+    | '/_authenticated/pendaftaran'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
 }
@@ -66,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -82,11 +133,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/anak': {
+      id: '/_authenticated/anak'
+      path: '/anak'
+      fullPath: '/anak'
+      preLoaderRoute: typeof AuthenticatedAnakRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/beranda': {
+      id: '/_authenticated/beranda'
+      path: '/beranda'
+      fullPath: '/beranda'
+      preLoaderRoute: typeof AuthenticatedBerandaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pendaftaran': {
+      id: '/_authenticated/pendaftaran'
+      path: '/pendaftaran'
+      fullPath: '/pendaftaran'
+      preLoaderRoute: typeof AuthenticatedPendaftaranRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnakRoute: typeof AuthenticatedAnakRoute
+  AuthenticatedBerandaRoute: typeof AuthenticatedBerandaRoute
+  AuthenticatedPendaftaranRoute: typeof AuthenticatedPendaftaranRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnakRoute: AuthenticatedAnakRoute,
+  AuthenticatedBerandaRoute: AuthenticatedBerandaRoute,
+  AuthenticatedPendaftaranRoute: AuthenticatedPendaftaranRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
 }
