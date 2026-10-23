@@ -505,6 +505,14 @@ export type Database = {
         }
         Returns: undefined
       }
+      decide_verification: {
+        Args: {
+          _note: string
+          _org: string
+          _status: Database["public"]["Enums"]["verification_status"]
+        }
+        Returns: undefined
+      }
       dev_claim_demo_role: {
         Args: { _org: string; _role: Database["public"]["Enums"]["app_role"] }
         Returns: undefined
@@ -517,6 +525,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_association_official: { Args: { _uid: string }; Returns: boolean }
       is_guardian: { Args: { _player: string; _uid: string }; Returns: boolean }
       is_team_admin: { Args: { _team: string; _uid: string }; Returns: boolean }
       is_team_coach: { Args: { _team: string; _uid: string }; Returns: boolean }
@@ -524,6 +533,7 @@ export type Database = {
         Args: { _note: string; _org: string; _player: string }
         Returns: string
       }
+      submit_verification: { Args: { _org: string }; Returns: undefined }
     }
     Enums: {
       app_role:
