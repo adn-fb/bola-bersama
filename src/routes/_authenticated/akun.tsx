@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/akun")({
   component: Page,
 });
 
-const roleFor: Record<string, AppRole> = { ssb: "ssb_admin", organizer: "organizer", association: "association" };
+const roleFor: Record<"ssb" | "organizer" | "association", AppRole> = { ssb: "ssb_admin", organizer: "organizer", association: "association" };
 
 function Page() {
   const { user, contexts, active, setActive, refetch } = useApp();
@@ -22,7 +22,7 @@ function Page() {
   const navigate = useNavigate();
   const demo = useQuery({ queryKey: ["demoOrgs"], queryFn: fetchDemoOrgs });
   const claim = useMutation({
-    mutationFn: (o: { id: string; kind: string }) => rpc("dev_claim_demo_role", { _org: o.id, _role: roleFor[o.kind] }),
+    mutationFn: (o: { id: string; kind: "ssb" | "organizer" | "association" }) => rpc("dev_claim_demo_role", { _org: o.id, _role: roleFor[o.kind] }),
     onSuccess: () => { toast.success("Peran demo ditambahkan. Ganti peran di bagian atas."); refetch(); qc.invalidateQueries(); },
     onError: (e) => toast.error(e.message),
   });

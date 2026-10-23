@@ -29,7 +29,7 @@ function Page() {
       {q.isLoading ? <LoadingList /> : q.error ? <ErrorBox error={q.error} /> : !q.data?.length ? <Empty title="Belum ada aktivitas" /> : (
         <Panel className="p-0">
           {q.data.map((a) => {
-            const d = a.details as Record<string, string> | null;
+            const d = a.details as { decision?: string; status?: string; note?: string } | null;
             return (
               <div key={a.id} className="border-b px-4 py-3 last:border-0">
                 <p className="font-medium">{actionLabel[a.action] ?? a.action}</p>

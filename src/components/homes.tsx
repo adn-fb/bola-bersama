@@ -31,7 +31,7 @@ export function TrainingCard({ t }: { t: { id: string; title: string; starts_at:
   );
 }
 
-function Upcoming({ teamIds }: { teamIds?: string[] }) {
+function Upcoming({ teamIds }: { teamIds?: string[] | undefined }) {
   const q = useQuery({ queryKey: ["trainings"], queryFn: fetchTrainings });
   if (q.isLoading) return <LoadingList rows={2} />;
   if (q.error) return <ErrorBox error={q.error} />;
@@ -76,7 +76,7 @@ export function OnboardingHome() {
 export function ParentHome() {
   const { user } = useApp();
   const q = useQuery({ queryKey: ["children"], queryFn: fetchChildren });
-  const name = (user.user_metadata?.full_name as string | undefined)?.split(" ")[0] ?? "";
+  const name = (user.user_metadata?.["full_name"] as string | undefined)?.split(" ")[0] ?? "";
   return (
     <>
       <PageHeader title={`Halo${name ? `, ${name}` : ""}`} subtitle="Ringkasan anak dan jadwal terdekat." />

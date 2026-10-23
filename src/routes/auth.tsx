@@ -9,9 +9,9 @@ import { Label } from "@/components/ui/label";
 type Mode = "signin" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: Mode; redirect?: string } => ({
-    mode: s.mode === "signup" || s.mode === "forgot" ? s.mode : undefined,
-    redirect: typeof s.redirect === "string" && s.redirect.startsWith("/") ? s.redirect : undefined,
+  validateSearch: (s: Record<string, unknown>): { mode?: Mode | undefined; redirect?: string | undefined } => ({
+    mode: s["mode"] === "signup" || s["mode"] === "forgot" ? s["mode"] : undefined,
+    redirect: typeof s["redirect"] === "string" && s["redirect"].startsWith("/") ? s["redirect"] : undefined,
   }),
   head: () => ({
     meta: [

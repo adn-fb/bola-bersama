@@ -35,15 +35,15 @@ function Page() {
               <span>{fmtDateTime(m.time)} · {m.venue}</span>
               <StatusBadge tone={tone[m.state]}>{matchStateLabel[m.state]}</StatusBadge>
             </div>
-            {[["home", "homeGoals"], ["away", "awayGoals"]].map(([side, g]) => (
+            {([["home", "homeGoals"], ["away", "awayGoals"]] as const).map(([side, g]) => (
               <div key={side} className="flex items-center gap-2 py-1">
-                <span className="flex-1 truncate font-semibold">{m[side as "home" | "away"]}</span>
+                <span className="flex-1 truncate font-semibold">{m[side]}</span>
                 {m.state === "live" && (
-                  <Button size="icon" variant="outline" className="size-9" aria-label="Kurangi gol" onClick={() => update(m.id, (x) => ({ ...x, [g]: Math.max(0, x[g as "homeGoals"] - 1) }))}><Minus className="size-4" /></Button>
+                  <Button size="icon" variant="outline" className="size-9" aria-label="Kurangi gol" onClick={() => update(m.id, (x) => ({ ...x, [g]: Math.max(0, x[g] - 1) }))}><Minus className="size-4" /></Button>
                 )}
-                <span className="w-8 text-center font-display text-2xl font-bold">{m.state === "scheduled" || m.state === "ready" ? "–" : m[g as "homeGoals"]}</span>
+                <span className="w-8 text-center font-display text-2xl font-bold">{m.state === "scheduled" || m.state === "ready" ? "–" : m[g]}</span>
                 {m.state === "live" && (
-                  <Button size="icon" variant="outline" className="size-9" aria-label="Tambah gol" onClick={() => update(m.id, (x) => ({ ...x, [g]: x[g as "homeGoals"] + 1 }))}><Plus className="size-4" /></Button>
+                  <Button size="icon" variant="outline" className="size-9" aria-label="Tambah gol" onClick={() => update(m.id, (x) => ({ ...x, [g]: x[g] + 1 }))}><Plus className="size-4" /></Button>
                 )}
               </div>
             ))}
