@@ -1,12 +1,6 @@
 -- Uji alur Fase 1 + batas akses. Dijalankan dalam transaksi dan di-ROLLBACK.
 -- psql -v ON_ERROR_STOP=1 -f supabase/tests/phase1_access.sql
 begin;
-insert into auth.users (id, email, instance_id, aud, role) values
- ('aaaaaaaa-0000-0000-0000-000000000001','wali.a@test.local','00000000-0000-0000-0000-000000000000','authenticated','authenticated'),
- ('aaaaaaaa-0000-0000-0000-000000000002','wali.b@test.local','00000000-0000-0000-0000-000000000000','authenticated','authenticated'),
- ('aaaaaaaa-0000-0000-0000-000000000003','admin@test.local','00000000-0000-0000-0000-000000000000','authenticated','authenticated'),
- ('aaaaaaaa-0000-0000-0000-000000000004','coach@test.local','00000000-0000-0000-0000-000000000000','authenticated','authenticated'),
- ('aaaaaaaa-0000-0000-0000-000000000005','coach2@test.local','00000000-0000-0000-0000-000000000000','authenticated','authenticated');
 
 create temp table ids(k text primary key, v uuid);
 grant all on ids to authenticated;
