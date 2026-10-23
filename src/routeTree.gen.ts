@@ -13,9 +13,17 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedAkunRouteImport } from './routes/_authenticated/akun'
 import { Route as AuthenticatedAnakRouteImport } from './routes/_authenticated/anak'
+import { Route as AuthenticatedAuditRouteImport } from './routes/_authenticated/audit'
 import { Route as AuthenticatedBerandaRouteImport } from './routes/_authenticated/beranda'
+import { Route as AuthenticatedJadwalRouteImport } from './routes/_authenticated/jadwal'
+import { Route as AuthenticatedKompetisiRouteImport } from './routes/_authenticated/kompetisi'
+import { Route as AuthenticatedNotifikasiRouteImport } from './routes/_authenticated/notifikasi'
 import { Route as AuthenticatedPendaftaranRouteImport } from './routes/_authenticated/pendaftaran'
+import { Route as AuthenticatedPertandinganRouteImport } from './routes/_authenticated/pertandingan'
+import { Route as AuthenticatedTimRouteImport } from './routes/_authenticated/tim'
+import { Route as AuthenticatedVerifikasiRouteImport } from './routes/_authenticated/verifikasi'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,14 +44,39 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAkunRoute = AuthenticatedAkunRouteImport.update({
+  id: '/akun',
+  path: '/akun',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAnakRoute = AuthenticatedAnakRouteImport.update({
   id: '/anak',
   path: '/anak',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAuditRoute = AuthenticatedAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBerandaRoute = AuthenticatedBerandaRouteImport.update({
   id: '/beranda',
   path: '/beranda',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedJadwalRoute = AuthenticatedJadwalRouteImport.update({
+  id: '/jadwal',
+  path: '/jadwal',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedKompetisiRoute = AuthenticatedKompetisiRouteImport.update({
+  id: '/kompetisi',
+  path: '/kompetisi',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotifikasiRoute = AuthenticatedNotifikasiRouteImport.update({
+  id: '/notifikasi',
+  path: '/notifikasi',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPendaftaranRoute =
@@ -52,22 +85,54 @@ const AuthenticatedPendaftaranRoute =
     path: '/pendaftaran',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPertandinganRoute =
+  AuthenticatedPertandinganRouteImport.update({
+    id: '/pertandingan',
+    path: '/pertandingan',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTimRoute = AuthenticatedTimRouteImport.update({
+  id: '/tim',
+  path: '/tim',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVerifikasiRoute = AuthenticatedVerifikasiRouteImport.update({
+  id: '/verifikasi',
+  path: '/verifikasi',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/akun': typeof AuthenticatedAkunRoute
   '/anak': typeof AuthenticatedAnakRoute
+  '/audit': typeof AuthenticatedAuditRoute
   '/beranda': typeof AuthenticatedBerandaRoute
+  '/jadwal': typeof AuthenticatedJadwalRoute
+  '/kompetisi': typeof AuthenticatedKompetisiRoute
+  '/notifikasi': typeof AuthenticatedNotifikasiRoute
   '/pendaftaran': typeof AuthenticatedPendaftaranRoute
+  '/pertandingan': typeof AuthenticatedPertandinganRoute
+  '/tim': typeof AuthenticatedTimRoute
+  '/verifikasi': typeof AuthenticatedVerifikasiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/akun': typeof AuthenticatedAkunRoute
   '/anak': typeof AuthenticatedAnakRoute
+  '/audit': typeof AuthenticatedAuditRoute
   '/beranda': typeof AuthenticatedBerandaRoute
+  '/jadwal': typeof AuthenticatedJadwalRoute
+  '/kompetisi': typeof AuthenticatedKompetisiRoute
+  '/notifikasi': typeof AuthenticatedNotifikasiRoute
   '/pendaftaran': typeof AuthenticatedPendaftaranRoute
+  '/pertandingan': typeof AuthenticatedPertandinganRoute
+  '/tim': typeof AuthenticatedTimRoute
+  '/verifikasi': typeof AuthenticatedVerifikasiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -75,25 +140,68 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/akun': typeof AuthenticatedAkunRoute
   '/_authenticated/anak': typeof AuthenticatedAnakRoute
+  '/_authenticated/audit': typeof AuthenticatedAuditRoute
   '/_authenticated/beranda': typeof AuthenticatedBerandaRoute
+  '/_authenticated/jadwal': typeof AuthenticatedJadwalRoute
+  '/_authenticated/kompetisi': typeof AuthenticatedKompetisiRoute
+  '/_authenticated/notifikasi': typeof AuthenticatedNotifikasiRoute
   '/_authenticated/pendaftaran': typeof AuthenticatedPendaftaranRoute
+  '/_authenticated/pertandingan': typeof AuthenticatedPertandinganRoute
+  '/_authenticated/tim': typeof AuthenticatedTimRoute
+  '/_authenticated/verifikasi': typeof AuthenticatedVerifikasiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/reset-password' | '/anak' | '/beranda' | '/pendaftaran'
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/akun'
+    | '/anak'
+    | '/audit'
+    | '/beranda'
+    | '/jadwal'
+    | '/kompetisi'
+    | '/notifikasi'
+    | '/pendaftaran'
+    | '/pertandingan'
+    | '/tim'
+    | '/verifikasi'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password' | '/anak' | '/beranda' | '/pendaftaran'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/akun'
+    | '/anak'
+    | '/audit'
+    | '/beranda'
+    | '/jadwal'
+    | '/kompetisi'
+    | '/notifikasi'
+    | '/pendaftaran'
+    | '/pertandingan'
+    | '/tim'
+    | '/verifikasi'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
+    | '/_authenticated/akun'
     | '/_authenticated/anak'
+    | '/_authenticated/audit'
     | '/_authenticated/beranda'
+    | '/_authenticated/jadwal'
+    | '/_authenticated/kompetisi'
+    | '/_authenticated/notifikasi'
     | '/_authenticated/pendaftaran'
+    | '/_authenticated/pertandingan'
+    | '/_authenticated/tim'
+    | '/_authenticated/verifikasi'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -133,11 +241,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/akun': {
+      id: '/_authenticated/akun'
+      path: '/akun'
+      fullPath: '/akun'
+      preLoaderRoute: typeof AuthenticatedAkunRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/anak': {
       id: '/_authenticated/anak'
       path: '/anak'
       fullPath: '/anak'
       preLoaderRoute: typeof AuthenticatedAnakRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/audit': {
+      id: '/_authenticated/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuthenticatedAuditRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/beranda': {
@@ -147,6 +269,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBerandaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/jadwal': {
+      id: '/_authenticated/jadwal'
+      path: '/jadwal'
+      fullPath: '/jadwal'
+      preLoaderRoute: typeof AuthenticatedJadwalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kompetisi': {
+      id: '/_authenticated/kompetisi'
+      path: '/kompetisi'
+      fullPath: '/kompetisi'
+      preLoaderRoute: typeof AuthenticatedKompetisiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifikasi': {
+      id: '/_authenticated/notifikasi'
+      path: '/notifikasi'
+      fullPath: '/notifikasi'
+      preLoaderRoute: typeof AuthenticatedNotifikasiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/pendaftaran': {
       id: '/_authenticated/pendaftaran'
       path: '/pendaftaran'
@@ -154,19 +297,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPendaftaranRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/pertandingan': {
+      id: '/_authenticated/pertandingan'
+      path: '/pertandingan'
+      fullPath: '/pertandingan'
+      preLoaderRoute: typeof AuthenticatedPertandinganRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tim': {
+      id: '/_authenticated/tim'
+      path: '/tim'
+      fullPath: '/tim'
+      preLoaderRoute: typeof AuthenticatedTimRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/verifikasi': {
+      id: '/_authenticated/verifikasi'
+      path: '/verifikasi'
+      fullPath: '/verifikasi'
+      preLoaderRoute: typeof AuthenticatedVerifikasiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAkunRoute: typeof AuthenticatedAkunRoute
   AuthenticatedAnakRoute: typeof AuthenticatedAnakRoute
+  AuthenticatedAuditRoute: typeof AuthenticatedAuditRoute
   AuthenticatedBerandaRoute: typeof AuthenticatedBerandaRoute
+  AuthenticatedJadwalRoute: typeof AuthenticatedJadwalRoute
+  AuthenticatedKompetisiRoute: typeof AuthenticatedKompetisiRoute
+  AuthenticatedNotifikasiRoute: typeof AuthenticatedNotifikasiRoute
   AuthenticatedPendaftaranRoute: typeof AuthenticatedPendaftaranRoute
+  AuthenticatedPertandinganRoute: typeof AuthenticatedPertandinganRoute
+  AuthenticatedTimRoute: typeof AuthenticatedTimRoute
+  AuthenticatedVerifikasiRoute: typeof AuthenticatedVerifikasiRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAkunRoute: AuthenticatedAkunRoute,
   AuthenticatedAnakRoute: AuthenticatedAnakRoute,
+  AuthenticatedAuditRoute: AuthenticatedAuditRoute,
   AuthenticatedBerandaRoute: AuthenticatedBerandaRoute,
+  AuthenticatedJadwalRoute: AuthenticatedJadwalRoute,
+  AuthenticatedKompetisiRoute: AuthenticatedKompetisiRoute,
+  AuthenticatedNotifikasiRoute: AuthenticatedNotifikasiRoute,
   AuthenticatedPendaftaranRoute: AuthenticatedPendaftaranRoute,
+  AuthenticatedPertandinganRoute: AuthenticatedPertandinganRoute,
+  AuthenticatedTimRoute: AuthenticatedTimRoute,
+  AuthenticatedVerifikasiRoute: AuthenticatedVerifikasiRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
